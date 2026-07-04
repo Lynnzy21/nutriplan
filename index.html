@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NutriPlan Rencanakan Menu Makanmu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;0,800;1,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   NutriPlan — design tokens
+   Palette: cream bg, deep forest text, warm orange accent,
+   terracotta secondary, sage success
+   ========================================================= */
+:root {
+  --bg-cream: #FBF6EE;
+  --bg-card: #FFFFFF;
+  --ink: #2B2A24;
+  --ink-soft: #6B6A60;
+  --line: #ECE4D4;
+  --orange: #E07A1F;
+  --orange-deep: #C2640F;
+  --orange-soft: #FCE8D2;
+  --sage: #4D8B5C;
+  --sage-soft: #E3F0E4;
+  --terracotta: #C1573A;
+  --cream-2: #F4EEE0;
+
+  --cat-pokok: #F4A340;
+  --cat-laukpauk: #E0664B;
+  --cat-sayur: #5C9E5C;
+  --cat-buah: #D94F8C;
+  --cat-minuman: #3E8FB0;
+
+  --font-display: "Fraunces", "Georgia", serif;
+  --font-body: "Inter", "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --radius-s: 8px;
+  --radius-m: 14px;
+  --radius-l: 24px;
+  --shadow-soft: 0 8px 24px rgba(43, 42, 36, 0.08);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg-cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; }
+
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+/* =========================== NAVBAR =========================== */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(251, 246, 238, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 76px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.brand .accent { color: var(--orange); }
+.brand-mark {
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--orange), var(--terracotta));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+.nav-links { display: flex; align-items: center; gap: 28px; }
+.nav-links a {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+.nav-links a:hover, .nav-links a.active { color: var(--ink); }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+.btn-primary {
+  background: var(--orange);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(224, 122, 31, 0.35);
+}
+.btn-primary:hover { background: var(--orange-deep); transform: translateY(-1px); }
+.btn-ghost {
+  background: transparent;
+  border: 1.5px solid var(--line);
+  color: var(--ink);
+}
+.btn-ghost:hover { border-color: var(--orange); color: var(--orange-deep); }
+
+/* =========================== HERO =========================== */
+.hero {
+  padding: 88px 0 64px;
+  position: relative;
+  overflow: hidden;
+}
+.hero .container {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 56px;
+  align-items: center;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--orange-soft);
+  color: var(--orange-deep);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  border-radius: 999px;
+  margin-bottom: 22px;
+}
+.hero h1 {
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  line-height: 1.08;
+  margin-bottom: 22px;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--orange-deep);
+  position: relative;
+}
+.hero-desc {
+  font-size: 1.08rem;
+  color: var(--ink-soft);
+  max-width: 480px;
+  margin-bottom: 32px;
+}
+.hero-cta { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 40px; }
+.hero-stats {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.hero-stats .stat-num {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.hero-stats .stat-label {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+
+/* =========================================================
+   HERO VISUAL — floating food cards with animation
+   ========================================================= */
+@keyframes floatA {
+  0%, 100% { transform: rotate(-3deg) translateY(0px); }
+  50%       { transform: rotate(-3deg) translateY(-8px); }
+}
+@keyframes floatB {
+  0%, 100% { transform: rotate(2.5deg) translateY(0px); }
+  50%       { transform: rotate(2.5deg) translateY(-10px); }
+}
+@keyframes floatC {
+  0%, 100% { transform: rotate(3deg) translateY(0px); }
+  50%       { transform: rotate(3deg) translateY(-7px); }
+}
+@keyframes floatD {
+  0%, 100% { transform: rotate(-2deg) translateY(0px); }
+  50%       { transform: rotate(-2deg) translateY(-9px); }
+}
+@keyframes floatMain {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50%       { transform: translateY(-6px) scale(1.01); }
+}
+@keyframes popIn {
+  0%   { opacity: 0; transform: scale(0.7) translateY(16px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.hero-visual {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 20px 12px 12px;
+}
+
+.food-float-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 16px;
+  align-items: center;
+}
+
+/* base card */
+.ff-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 28px rgba(43,42,36,0.11);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 18px 12px 16px;
+  opacity: 0;
+  animation: popIn 0.5s cubic-bezier(.34,1.56,.64,1) forwards;
+}
+
+/* stagger pop-in */
+.ff-card:nth-child(1) { animation-delay: 0.1s; }
+.ff-card:nth-child(2) { animation-delay: 0.25s; }
+.ff-card:nth-child(3) { animation-delay: 0.0s; }
+.ff-card:nth-child(4) { animation-delay: 0.2s; }
+.ff-card:nth-child(5) { animation-delay: 0.35s; }
+
+/* float animations per card */
+.ff-card.r1 { animation: popIn 0.5s 0.1s cubic-bezier(.34,1.56,.64,1) forwards, floatA 4s 0.6s ease-in-out infinite; }
+.ff-card.r2 { animation: popIn 0.5s 0.25s cubic-bezier(.34,1.56,.64,1) forwards, floatB 4.5s 0.75s ease-in-out infinite; }
+.ff-card.r3 { animation: popIn 0.5s 0.2s cubic-bezier(.34,1.56,.64,1) forwards, floatC 3.8s 0.7s ease-in-out infinite; }
+.ff-card.r4 { animation: popIn 0.5s 0.35s cubic-bezier(.34,1.56,.64,1) forwards, floatD 4.2s 0.85s ease-in-out infinite; }
+
+/* hover lift */
+.ff-card:hover { filter: brightness(1.02); }
+
+/* ---- kartu UTAMA tengah ---- */
+.ff-main {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  padding: 28px 18px 24px;
+  background: linear-gradient(155deg, #FFF5E6 0%, #FFFFFF 60%);
+  border: 2px solid var(--orange-soft);
+  position: relative;
+  animation: popIn 0.5s 0.0s cubic-bezier(.34,1.56,.64,1) forwards, floatMain 4s 0.5s ease-in-out infinite !important;
+}
+.ff-main::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, var(--orange), var(--terracotta), var(--orange-soft));
+  z-index: -1;
+  opacity: 0.5;
+}
+.ff-main .ff-emoji { font-size: 3.4rem; margin-bottom: 14px; filter: drop-shadow(0 4px 8px rgba(224,122,31,0.25)); }
+.ff-main .ff-name  { font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; color: var(--ink); margin-bottom: 6px; line-height: 1.3; }
+.ff-main .ff-kal   { font-size: 0.8rem; color: var(--ink-soft); margin-bottom: 14px; }
+.ff-main .ff-badge-main {
+  background: linear-gradient(120deg, var(--orange), var(--orange-deep));
+  color: #fff;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(224,122,31,0.4);
+  letter-spacing: 0.02em;
+}
+
+/* ---- kartu KECIL ---- */
+.ff-sm { border: 1px solid var(--line); }
+.ff-sm .ff-emoji { font-size: 2rem; margin-bottom: 8px; }
+.ff-sm .ff-name  { font-size: 0.76rem; font-weight: 700; color: var(--ink); margin-bottom: 4px; line-height: 1.3; }
+.ff-sm .ff-kal   { font-size: 0.68rem; color: var(--ink-soft); margin-bottom: 6px; }
+.ff-sm .ff-cat   {
+  display: inline-block;
+  font-size: 0.63rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+
+/* accent bar top per kategori */
+.ff-sm.acc-pokok   { border-top: 3px solid var(--cat-pokok); }
+.ff-sm.acc-lauk    { border-top: 3px solid var(--cat-laukpauk); }
+.ff-sm.acc-sayur   { border-top: 3px solid var(--cat-sayur); }
+.ff-sm.acc-buah    { border-top: 3px solid var(--cat-buah); }
+.ff-sm.acc-minuman { border-top: 3px solid var(--cat-minuman); }
+
+/* badge Menu Seimbang mengambang */
+.hero-badge-seimbang {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(120deg, var(--sage), #3E7A4C);
+  color: #fff;
+  border-radius: 999px;
+  padding: 12px 24px;
+  font-weight: 800;
+  font-size: 0.92rem;
+  box-shadow: 0 6px 20px rgba(77,139,92,0.35);
+  animation: floatMain 3.5s 1s ease-in-out infinite;
+  letter-spacing: 0.01em;
+}
+.hero-badge-seimbang .bs-icon { font-size: 1.2rem; }
+
+/* =========================== SECTION GENERIC =========================== */
+.section { padding: 84px 0; }
+.section-alt { background: var(--cream-2); }
+.section-head {
+  max-width: 620px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+.section-head .eyebrow { margin-left: auto; margin-right: auto; }
+.section-head h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 14px; }
+.section-head p { color: var(--ink-soft); font-size: 1.02rem; }
+
+/* how it works */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.step-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  padding: 30px 26px;
+}
+.step-num {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--orange-deep);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.step-card h3 { font-size: 1.15rem; margin-bottom: 10px; }
+.step-card p { color: var(--ink-soft); font-size: 0.94rem; margin: 0; }
+
+/* favorite menu highlight cards */
+.fav-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.fav-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.fav-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-soft); }
+.fav-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
+.fav-body { padding: 16px 16px 18px; }
+.fav-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 3px 9px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+.fav-body h4 { font-size: 1rem; margin-bottom: 6px; }
+.fav-meta { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--ink-soft); }
+.fav-meta b { color: var(--ink); }
+
+/* category tag colors (shared with planner) */
+.tag-Pokok { background: #FDEBD2; color: #9A5B0E; }
+.tag-LaukPauk { background: #FBDFD7; color: #9C3D24; }
+.tag-Sayur { background: #DFEFE0; color: #2F6A3B; }
+.tag-Buah { background: #FBDDEA; color: #9C2F60; }
+.tag-Minuman { background: #DAEEF4; color: #1F6A85; }
+
+/* testimonials */
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.testi-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  padding: 28px 26px;
+}
+.testi-stars { color: var(--orange); font-size: 0.9rem; margin-bottom: 14px; letter-spacing: 2px; }
+.testi-quote { font-size: 0.96rem; color: var(--ink); margin-bottom: 20px; }
+.testi-person { display: flex; align-items: center; gap: 12px; }
+.testi-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; color: #fff; font-family: var(--font-display);
+}
+.testi-name { font-weight: 700; font-size: 0.9rem; }
+.testi-role { font-size: 0.8rem; color: var(--ink-soft); }
+
+/* stat strip */
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  background: var(--ink);
+  border-radius: var(--radius-l);
+  padding: 44px 36px;
+  color: #fff;
+}
+.stat-strip .stat { text-align: center; }
+.stat-strip .stat-num {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #FFD7A8;
+}
+.stat-strip .stat-label { font-size: 0.84rem; color: #C9C7BC; margin-top: 6px; }
+
+/* final CTA */
+.cta-band {
+  background: linear-gradient(120deg, var(--orange), var(--terracotta));
+  border-radius: var(--radius-l);
+  padding: 56px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  color: #fff;
+  flex-wrap: wrap;
+}
+.cta-band h2 { color: #fff; font-size: clamp(1.6rem, 3vw, 2.1rem); margin-bottom: 10px; }
+.cta-band p { color: rgba(255,255,255,0.85); margin: 0; max-width: 420px; }
+.cta-band .btn-primary { background: #fff; color: var(--orange-deep); box-shadow: none; }
+.cta-band .btn-primary:hover { background: #fff4e8; }
+
+/* footer */
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 36px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  color: var(--ink-soft);
+  font-size: 0.86rem;
+}
+
+/* =========================================================
+   PLANNER PAGE
+   ========================================================= */
+.planner-shell {
+  padding: 36px 0 80px;
+}
+.planner-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 28px;
+  align-items: start;
+}
+
+.panel {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  overflow: hidden;
+}
+
+/* Menu table panel */
+.menu-panel-head {
+  padding: 22px 26px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.menu-panel-head h2 { font-size: 1.25rem; display: flex; align-items: center; gap: 10px; }
+.count-badge {
+  background: var(--orange-soft);
+  color: var(--orange-deep);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 11px;
+  border-radius: 999px;
+}
+.filter-bar { display: flex; gap: 8px; flex-wrap: wrap; padding: 18px 26px; }
+.filter-chip {
+  border: 1.5px solid var(--line);
+  background: #fff;
+  color: var(--ink-soft);
+  font-weight: 700;
+  font-size: 0.84rem;
+  padding: 9px 18px;
+  border-radius: 999px;
+  transition: all 0.15s ease;
+}
+.filter-chip:hover { border-color: var(--orange); color: var(--orange-deep); }
+.filter-chip.active { background: var(--orange); border-color: var(--orange); color: #fff; }
+
+.menu-table-wrap { overflow-x: auto; }
+table.menu-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px;
+}
+.menu-table thead th {
+  text-align: left;
+  font-size: 0.74rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding: 14px 26px;
+  border-bottom: 1px solid var(--line);
+  background: var(--cream-2);
+}
+.menu-table tbody td {
+  padding: 14px 26px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+.menu-table tbody tr:last-child td { border-bottom: none; }
+.menu-table tbody tr.is-checked { background: #FFF8EE; }
+.menu-table tbody tr:hover { background: #FFFAF2; }
+
+.row-thumb {
+  width: 52px; height: 52px;
+  border-radius: 10px;
+  object-fit: cover;
+  background: var(--cream-2);
+}
+.row-name { font-weight: 700; font-size: 0.95rem; }
+.cat-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+.row-kalori, .row-harga { font-size: 0.92rem; color: var(--ink); white-space: nowrap; }
+.row-harga { font-weight: 700; }
+
+.chk {
+  appearance: none;
+  width: 24px; height: 24px;
+  border-radius: 7px;
+  border: 2px solid var(--line);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s ease;
+}
+.chk:hover { border-color: var(--orange); }
+.chk:checked { background: var(--orange); border-color: var(--orange); }
+.chk:checked::after {
+  content: "";
+  width: 7px; height: 12px;
+  border: solid #fff;
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg) translate(-1px, -1px);
+}
+
+/* Result panel */
+.result-panel {
+  position: sticky;
+  top: 96px;
+}
+.result-head {
+  background: linear-gradient(120deg, var(--orange), var(--orange-deep));
+  color: #fff;
+  padding: 22px 26px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.result-head h2 { font-size: 1.15rem; color: #fff; }
+
+.result-body { padding: 22px 26px 26px; }
+
+.result-empty {
+  text-align: center;
+  padding: 28px 10px 8px;
+  color: var(--ink-soft);
+}
+.result-empty .empty-icon { font-size: 2.4rem; margin-bottom: 10px; }
+.result-empty p { font-weight: 600; margin: 0; font-size: 0.94rem; }
+.result-empty span { font-size: 0.82rem; }
+
+.stack-wrap { margin-bottom: 18px; }
+.stack-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+}
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+.stack-thumb {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+}
+
+.totals { padding: 16px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 18px; display: flex; flex-direction: column; gap: 12px; }
+.total-row { display: flex; align-items: center; justify-content: space-between; }
+.total-label { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--ink-soft); font-weight: 600; }
+.total-value { font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; }
+
+.cat-checklist-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 12px;
+}
+.cat-checklist { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.cat-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--cream-2);
+}
+.cat-item.met { background: var(--sage-soft); }
+.cat-item-name { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.88rem; }
+.cat-dot { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #fff; background: var(--line); }
+.cat-item.met .cat-dot { background: var(--sage); }
+.cat-status { font-size: 0.78rem; font-weight: 700; color: var(--ink-soft); }
+.cat-item.met .cat-status { color: var(--sage); }
+
+.balance-badge {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 6px;
+  text-align: center;
+  background: linear-gradient(120deg, var(--sage), #3E7A4C);
+  color: #fff;
+  border-radius: var(--radius-m);
+  padding: 22px 16px;
+  font-weight: 800;
+}
+.balance-badge.show { display: flex; }
+.balance-badge .trophy { font-size: 1.8rem; }
+.balance-badge .bsub { font-size: 0.78rem; font-weight: 600; opacity: 0.9; }
+
+/* =========================== RESPONSIVE =========================== */
+@media (max-width: 1024px) {
+  .hero .container { grid-template-columns: 1fr; text-align: center; }
+  .hero-desc { margin-left: auto; margin-right: auto; }
+  .hero-cta { justify-content: center; }
+  .hero-stats { justify-content: center; }
+  .hero-visual { max-width: 460px; margin: 32px auto 0; }
+  .planner-grid { grid-template-columns: 1fr; }
+  .result-panel { position: static; }
+  .steps { grid-template-columns: 1fr 1fr; }
+  .fav-grid { grid-template-columns: 1fr 1fr; }
+  .testi-grid { grid-template-columns: 1fr 1fr; }
+  .stat-strip { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .navbar .container { height: 64px; }
+  .nav-links { gap: 10px; }
+  .nav-links a:not(.btn) { display: none; }
+  .btn { padding: 10px 18px; font-size: 0.88rem; }
+  .hero { padding: 48px 0 32px; }
+  .hero h1 { font-size: 2rem; }
+  .hero-visual { max-width: 100%; padding: 8px 0; }
+  .food-float-grid { grid-template-columns: 1fr 1.4fr 1fr; gap: 10px; }
+  .ff-card { padding: 12px 8px 11px; border-radius: 14px; }
+  .ff-main { padding: 18px 12px 16px; }
+  .ff-main .ff-emoji { font-size: 2.4rem; }
+  .ff-main .ff-name { font-size: 0.88rem; }
+  .ff-sm .ff-emoji { font-size: 1.5rem; }
+  .ff-sm .ff-name { font-size: 0.68rem; }
+  .ff-sm .ff-kal { font-size: 0.62rem; }
+  .ff-sm .ff-cat { font-size: 0.58rem; padding: 2px 6px; }
+  .hero-badge-seimbang { font-size: 0.78rem; padding: 10px 16px; gap: 8px; margin-top: 14px; }
+  .section { padding: 48px 0; }
+  .section-head h2 { font-size: 1.6rem; }
+  .steps { grid-template-columns: 1fr; gap: 16px; }
+  .fav-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .testi-grid { grid-template-columns: 1fr; }
+  .stat-strip { grid-template-columns: 1fr 1fr; padding: 24px 18px; gap: 16px; }
+  .stat-strip .stat-num { font-size: 1.7rem; }
+  .cta-band { flex-direction: column; text-align: center; padding: 36px 22px; gap: 20px; }
+  .menu-panel-head { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .filter-bar { padding: 12px 16px; gap: 8px; overflow-x: auto; flex-wrap: nowrap; }
+  .filter-chip { white-space: nowrap; flex-shrink: 0; padding: 8px 14px; }
+  .menu-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .menu-table { min-width: 560px; }
+  .menu-table thead th, .menu-table tbody td { padding: 11px 12px; }
+  .row-thumb { width: 42px; height: 42px; border-radius: 8px; }
+  .stack-grid { grid-template-columns: repeat(4, 1fr); }
+  .result-body { padding: 16px 18px 20px; }
+  .total-value { font-size: 1.1rem; }
+}
+@media (max-width: 400px) {
+  .hero h1 { font-size: 1.75rem; }
+  .food-float-grid { gap: 8px; }
+  .ff-main .ff-emoji { font-size: 2rem; }
+  .fav-grid { grid-template-columns: 1fr; }
+}
+
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand">
+
+      Nutri<span class="accent">Plan</span>
+    </a>
+    <div class="nav-links">
+      <a href="#konsep">Konsep</a>
+      <a href="#favorit">Menu Favorit</a>
+      <a href="#testimoni">Testimoni</a>
+      <a href="planner.html" class="btn btn-primary">Buka Planner →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="container">
+    <div class="hero-copy">
+      <span class="eyebrow">🍽️ Perencana Menu Makan Harian</span>
+      <h1>Susun menu makan yang <em>seimbang</em>,<br>tanpa pusing hitung kalori.</h1>
+      <p class="hero-desc">
+        NutriPlan membantu kamu memilih kombinasi makanan pokok, lauk-pauk, sayur,
+        buah, dan minuman dari satu tabel interaktif lengkap dengan total kalori,
+        total harga, dan status gizi yang langsung berubah saat kamu memilih.
+      </p>
+      <div class="hero-cta">
+        <a href="planner.html" class="btn btn-primary">Mulai Susun Menu →</a>
+        <a href="#konsep" class="btn btn-ghost">Lihat Cara Kerja</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">1.000+</div>
+          <div class="stat-label">Pengguna aktif</div>
+        </div>
+        <div>
+          <div class="stat-num">26</div>
+          <div class="stat-label">Pilihan menu</div>
+        </div>
+        <div>
+          <div class="stat-num">4.8/5</div>
+          <div class="stat-label">Rating pengguna</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="food-float-grid">
+
+        <!-- kiri atas: Pokok -->
+        <div class="ff-card ff-sm acc-pokok r1">
+          <img src="assets/nasi-goreng.jpg" alt="Nasi Goreng Spesial">
+          <div class="ff-name">Nasi Goreng Spesial</div>
+          <div class="ff-kal">450 kkal</div>
+          <span class="ff-cat tag-Pokok">Pokok</span>
+        </div>
+
+        <!-- kiri bawah: Buah -->
+        <div class="ff-card ff-sm acc-buah r2">
+          <img src="assets/apel.jpg" alt="Apel Fuji">
+          <div class="ff-name">Apel Fuji</div>
+          <div class="ff-kal">95 kkal</div>
+          <span class="ff-cat tag-Buah">Buah</span>
+        </div>
+
+        <!-- tengah: featured -->
+        <div class="ff-card ff-main">
+          <img src="assets/ayam-bakar.jpg" alt="Ayam Bakar Madu">
+          <div class="ff-name">Ayam Bakar Madu</div>
+          <div class="ff-kal">280 kkal &middot; Rp 20.000</div>
+          <span class="ff-badge-main">&#x2605; Menu Favorit</span>
+        </div>
+
+        <!-- kanan atas: Sayur -->
+        <div class="ff-card ff-sm acc-sayur r3">
+          <img src="assets/tumis-kangkung.jpg" alt="Tumis Kangkung">
+          <div class="ff-name">Tumis Kangkung</div>
+          <div class="ff-kal">90 kkal</div>
+          <span class="ff-cat tag-Sayur">Sayur</span>
+        </div>
+
+        <!-- kanan bawah: Minuman -->
+        <div class="ff-card ff-sm acc-minuman r4">
+          <img src="assets/jus-alpukat.jpg" alt="Jus Alpukat">
+          <div class="ff-name">Jus Alpukat</div>
+          <div class="ff-kal">230 kkal</div>
+          <span class="ff-cat tag-Minuman">Minuman</span>
+        </div>
+
+      </div>
+
+      <!-- badge Menu Seimbang mengambang di bawah grid -->
+      <div class="hero-badge-seimbang">
+        Menu Complate
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ KONSEP / CARA KERJA ============ -->
+<section class="section" id="konsep">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Cara Kerja</span>
+      <h2>Tiga langkah menuju menu seimbang</h2>
+      <p>Tidak perlu aplikasi rumit cukup pilih, lihat hasilnya berubah, dan sesuaikan sampai pas.</p>
+    </div>
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <h3>Pilih dari tabel menu</h3>
+        <p>Centang menu yang kamu inginkan dari 26 pilihan: makanan pokok, lauk-pauk, sayur, buah, hingga minuman.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <h3>Pantau hasil real-time</h3>
+        <p>Total kalori, total harga, dan tumpukan gambar menu yang dipilih langsung diperbarui setiap kamu mencentang.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <h3>Capai "Menu Seimbang"</h3>
+        <p>Begitu kelima kategori gizi terpenuhi minimal satu item, badge "Menu Seimbang!" akan muncul otomatis.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MENU FAVORIT ============ -->
+<section class="section section-alt" id="favorit">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Paling Disukai</span>
+      <h2>Menu favorit pengguna NutriPlan</h2>
+      <p>Beberapa kombinasi yang paling sering dipilih minggu ini.</p>
+    </div>
+    <div class="fav-grid">
+      <article class="fav-card">
+        <img class="fav-img" src="assets/nasi-goreng.jpg" alt="Nasi Goreng Spesial">
+        <div class="fav-body">
+          <span class="fav-tag tag-Pokok">Pokok</span>
+          <h4>Nasi Goreng Spesial</h4>
+          <div class="fav-meta"><span>450 kkal</span><b>Rp 18.000</b></div>
+        </div>
+      </article>
+      <article class="fav-card">
+        <img class="fav-img" src="assets/rendang.jpg" alt="Rendang Daging Sapi">
+        <div class="fav-body">
+          <span class="fav-tag tag-LaukPauk">Lauk-Pauk</span>
+          <h4>Rendang Daging Sapi</h4>
+          <div class="fav-meta"><span>380 kkal</span><b>Rp 32.000</b></div>
+        </div>
+      </article>
+      <article class="fav-card">
+        <img class="fav-img" src="assets/gado-gado.jpg" alt="Gado-Gado">
+        <div class="fav-body">
+          <span class="fav-tag tag-Sayur">Sayur</span>
+          <h4>Gado-Gado</h4>
+          <div class="fav-meta"><span>280 kkal</span><b>Rp 16.000</b></div>
+        </div>
+      </article>
+      <article class="fav-card">
+        <img class="fav-img" src="assets/fruit-cup.jpg" alt="Fruit Salad Cup">
+        <div class="fav-body">
+          <span class="fav-tag tag-Buah">buah</span>
+          <h4>Fruit Salad Cup</h4>
+          <div class="fav-meta"><span>140 kkal</span><b>Rp 17.000</b></div>
+        </div>
+      </article>
+      <article class="fav-card">
+        <img class="fav-img" src="assets/jus-alpukat.jpg" alt="Jus Alpukat">
+        <div class="fav-body">
+          <span class="fav-tag tag-Minuman">Minuman</span>
+          <h4>Jus Alpukat</h4>
+          <div class="fav-meta"><span>230 kkal</span><b>Rp 18.000</b></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STAT STRIP ============ -->
+<section class="section">
+  <div class="container">
+    <div class="stat-strip">
+      <div class="stat">
+        <div class="stat-num">1.000+</div>
+        <div class="stat-label">Pengguna terdaftar</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">26</div>
+        <div class="stat-label">Item menu tersedia</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Kategori gizi</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Berhasil susun menu seimbang</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONI ============ -->
+<section class="section section-alt" id="testimoni">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Kata Mereka</span>
+      <h2>Dipercaya untuk rencana makan harian</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Akhirnya gampang ngatur menu makan seminggu tanpa lupa porsi sayur dan buah."</p>
+        <div class="testi-person">
+          <div class="testi-avatar" style="background:var(--cat-pokok)">R</div>
+          <div>
+            <div class="testi-name">Rani A.</div>
+            <div class="testi-role">Mahasiswa</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Total harga langsung kelihatan, jadi bisa atur budget makan harian dengan lebih rapi."</p>
+        <div class="testi-person">
+          <div class="testi-avatar" style="background:var(--cat-laukpauk)">D</div>
+          <div>
+            <div class="testi-name">Dimas P.</div>
+            <div class="testi-role">Pekerja Kantoran</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Badge Menu Seimbang itu kayak game kecil — bikin semangat lengkapi semua kategori."</p>
+        <div class="testi-person">
+          <div class="testi-avatar" style="background:var(--cat-sayur)">S</div>
+          <div>
+            <div class="testi-name">Sinta W.</div>
+            <div class="testi-role">Ibu Rumah Tangga</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA AKHIR ============ -->
+<section class="section">
+  <div class="container">
+    <div class="cta-band">
+      <div>
+        <h2>Siap susun menu seimbangmu hari ini?</h2>
+        <p>Buka halaman Planner dan lihat total kalori, harga, serta status gizi berubah secara real-time.</p>
+      </div>
+      <a href="planner.html" class="btn btn-primary">Buka Planner →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+    <span>© 2026 NutriPlan Tugas Besar Web Client Development</span>
+  </div>
+</footer>
+
+</body>
+</html>

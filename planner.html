@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planner — NutriPlan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;0,800;1,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand">
+      Nutri<span class="accent">Plan</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Beranda</a>
+      <a href="planner.html" class="btn btn-primary">Planner</a>
+    </div>
+  </div>
+</nav>
+
+<main class="planner-shell">
+  <div class="container">
+    <div class="planner-grid">
+
+      <!-- ===== TABEL MENU ===== -->
+      <section class="panel">
+        <div class="menu-panel-head">
+          <h2>📋 Daftar Menu <span class="count-badge" id="countBadge">26 menu</span></h2>
+        </div>
+
+        <div class="filter-bar" id="filterBar">
+          <button class="filter-chip active" data-filter="Semua">Semua</button>
+          <button class="filter-chip" data-filter="Pokok">Pokok</button>
+          <button class="filter-chip" data-filter="LaukPauk">Lauk-Pauk</button>
+          <button class="filter-chip" data-filter="Sayur">Sayur</button>
+          <button class="filter-chip" data-filter="Buah">Buah</button>
+          <button class="filter-chip" data-filter="Minuman">Minuman</button>
+        </div>
+
+        <div class="menu-table-wrap">
+          <table class="menu-table">
+            <thead>
+              <tr>
+                <th>Gambar</th>
+                <th>Nama Menu</th>
+                <th>Kategori</th>
+                <th>Kalori</th>
+                <th>Harga</th>
+                <th>Pilih</th>
+              </tr>
+            </thead>
+            <tbody id="menuTableBody">
+              <!-- diisi JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===== PANEL HASIL ===== -->
+      <aside class="panel result-panel">
+        <div class="result-head">
+          <h2>📊 Hasil Pilihan</h2>
+        </div>
+        <div class="result-body">
+
+          <div class="result-empty" id="emptyState">
+            <div class="empty-icon">🍽️</div>
+            <p>Belum ada menu dipilih</p>
+            <span>Centang menu di tabel sebelah kiri untuk mulai.</span>
+          </div>
+
+          <div id="resultContent" style="display:none;">
+            <div class="stack-wrap">
+              <div class="stack-label">Menu Terpilih</div>
+              <div class="stack-grid" id="stackGrid"></div>
+            </div>
+
+            <div class="totals">
+              <div class="total-row">
+                <span class="total-label">🔥 Total Kalori</span>
+                <span class="total-value" id="totalKalori">0 kkal</span>
+              </div>
+              <div class="total-row">
+                <span class="total-label">💰 Total Harga</span>
+                <span class="total-value" id="totalHarga">Rp 0</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="cat-checklist-label">Kelengkapan Kategori Gizi</div>
+          <div class="cat-checklist" id="catChecklist"></div>
+
+          <div class="balance-badge" id="balanceBadge">
+            <div class="trophy">🏆</div>
+            <div>Menu Seimbang!</div>
+            <div class="bsub">Semua 5 kategori gizi terpenuhi</div>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+    <span>© 2026 NutriPlan Tugas Besar Web Client Development</span>
+  </div>
+</footer>
+
+<script src="js/menu-data.js"></script>
+<script src="js/planner.js"></script>
+</body>
+</html>
